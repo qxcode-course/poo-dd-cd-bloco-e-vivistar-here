@@ -6,7 +6,7 @@ class Pagamento(ABC):
         self.descricao = descricao
 
     def resumo(self):
-        print(f"Pagamento de R$ {self.valor:.2f}: {self.descricao}")
+        print(f"Pagamento de R$ {self.valor}: {self.descricao}")
 
     def validar_valor(self):
         if self.valor <= 0:
@@ -19,8 +19,8 @@ class Pagamento(ABC):
 class CartaoCredito(Pagamento):
     def __init__(self, valor, descricao, numero, nome_titular, limite_disponivel):
         super().__init__(valor, descricao)
-        self.numero: int = numero
-        self.nome_titular: str = nome_titular
+        self.numero = numero
+        self.nome_titular = nome_titular
         self.limite_disponivel = limite_disponivel
 
     def processar(self):
@@ -28,12 +28,12 @@ class CartaoCredito(Pagamento):
         if self.valor > self.limite_disponivel:
             return f"Erro: Limite insuficiente no cartão {self.numero}"
         self.limite_disponivel -= self.valor
-        return f"Pagamento aprovado no cartão {self.nome_titular}. Limite restante: {self.limite_disponivel:.2f}"
+        return f"Pagamento aprovado no cartão {self.nome_titular}. Limite restante: {self.limite_disponivel}"
 
 class Pix(Pagamento):
     def __init__(self, valor, descricao, banco, chave):
         super().__init__(valor, descricao)
-        self.banco: str = banco
+        self.banco = banco
         self.chave = chave
 
     def processar(self):
@@ -54,3 +54,15 @@ def processar_pagamento(pagamento: Pagamento):
     pagamento.validar_valor()
     pagamento.resumo()
     print(pagamento.processar())
+
+carrinho = [
+    Pix(150.0, "Camisa esportiva", "Banco XPTO", "email@ex.com"),
+    CartaoCredito(400.0, "Tênis esportivo", "1111 2222 3333 4444", "Cliente X", 500.0),
+    Boleto(89.9, "Livro de Python", "12345678900", "10/12/2025"),
+    CartaoCredito(800.0, "Notebook", "9999 8888 7777 6666", "Cliente Y", 300)
+]
+
+for pagamento in carrinho:
+    processar_pagamento(pagamento)
+    print()
+    
