@@ -1,0 +1,39 @@
+{
+    "patches": [
+        {
+            "label": "2025-12-11_00-30-54",
+            "content": "@@ -1018,21 +1018,21 @@\n sponivel\n+%7D\n :.2f\n-%7D\n %22%0A%0Ac= Ca\n",
+            "lines": "42"
+        },
+        {
+            "label": "2025-12-11_00-31-42",
+            "content": "@@ -1060,10 +1060,9 @@\n r = \n-17\n+2\n 0,%0A \n@@ -1095,29 +1095,8 @@\n romi\n-, HQ Tartarugas Ninja\n %22,%0A \n",
+            "lines": "42"
+        },
+        {
+            "label": "2025-12-11_00-33-40",
+            "content": "@@ -1060,10 +1060,10 @@\n r = \n-24\n+17\n 0,%0A \n@@ -1117,30 +1117,8 @@\n inja\n-, Comic Avatar Legends\n %22,%0A \n",
+            "lines": "42"
+        },
+        {
+            "label": "2025-12-11_00-34-17",
+            "content": "@@ -1060,10 +1060,10 @@\n r = \n-17\n+24\n 0,%0A \n@@ -1114,16 +1114,37 @@\n s Ninja,\n+ Comic Avatar Legends\n %22,%0A    n\n",
+            "lines": "42"
+        },
+        {
+            "label": "2025-12-11_00-34-30",
+            "content": "@@ -869,17 +869,16 @@\n urn \n-f%22Erro: L\n+%22fail: l\n imit\n@@ -895,32 +895,8 @@\n ente\n- no cart%C3%A3o %7Bself.numero%7D\n %22%0A  \n@@ -969,46 +969,17 @@\n nto \n-aprovado no cart%C3%A3o %7Bself.nome_titular%7D\n+realizado\n . Li\n@@ -993,16 +993,18 @@\n stante: \n+R$\n %7Bself.li\n",
+            "lines": "42"
+        },
+        {
+            "label": "2025-12-11_00-38-58",
+            "content": "@@ -240,17 +240,16 @@\n or:.2f%7D:\n- \n %7Bself.de\n",
+            "lines": "42"
+        },
+        {
+            "label": "2025-12-11_00-39-37",
+            "content": "from abc import ABC, abstractmethod\n\nclass Pagamento(ABC):\n    def __init__(self, valor: float, descricao: str):\n        self.valor = valor\n        self.descricao = descricao\n\n    def resumo(self):\n        print(f\"Pagamento de R$ {self.valor:.2f}: {self.descricao}\")\n\n    def validar_valor(self):\n        if self.valor <= 0:\n            raise ValueError(\"O valor do pagamento deve ser maior que zero\")\n\n    @abstractmethod\n    def processar(self):\n        pass\n\nclass CartaoCredito(Pagamento):\n    def __init__(self, valor, descricao, numero, nome_titular, limite_disponivel):\n        super().__init__(valor, descricao)\n        self.numero: int = numero\n        self.nome_titular: str = nome_titular\n        self.limite_disponivel = limite_disponivel\n\n    def processar(self):\n        self.validar_valor()\n        if self.valor > self.limite_disponivel:\n            return f\"Erro: Limite insuficiente no cart\u00e3o {self.numero}\"\n        self.limite_disponivel -= self.valor\n        return f\"Pagamento aprovado no cart\u00e3o {self.nome_titular}. Limite restante: {self.limite_disponivel:.2f}\"\n\nc= CartaoCredito(\n    valor = 170,\n    descricao=\"Boneco da Kuromi, HQ Tartarugas Ninja,\",\n    numero=\"1234.5678.9987.6543\",\n    nome_titular=\"Vit\u00f3ria\",\n    limite_disponivel=200\n)\n\nc.resumo()\nprint(c.processar())",
+            "lines": "42"
+        }
+    ]
+}
