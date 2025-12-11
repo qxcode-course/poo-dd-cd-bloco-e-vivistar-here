@@ -30,3 +30,27 @@ class CartaoCredito(Pagamento):
         self.limite_disponivel -= self.valor
         return f"Pagamento aprovado no cartão {self.nome_titular}. Limite restante: {self.limite_disponivel:.2f}"
 
+class Pix(Pagamento):
+    def __init__(self, valor, descricao, banco, chave):
+        super().__init__(valor, descricao)
+        self.banco: str = banco
+        self.chave = chave
+
+    def processar(self):
+        self.validar_valor()
+        return f"PIX enviado via {self.banco} usando chave {self.chave}"
+
+class Boleto(Pagamento):
+    def __init__(self, valor, descricao, codigo_barras, vencimento):
+        super().__init__(valor, descricao)
+        self.codigo_barras = codigo_barras
+        self.vencimento = vencimento
+    
+    def processar(self):
+        self.validar_valor()
+        return "Boleto gerado. Aguardando pagamento..."
+
+def processar_pagamento(pagamento: Pagamento):
+    pagamento.validar_valor()
+    pagamento.resumo()
+    print(pagamento.processar())
