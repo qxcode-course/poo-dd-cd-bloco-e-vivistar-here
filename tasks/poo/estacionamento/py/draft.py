@@ -62,3 +62,35 @@ class Carro(Veiculo):
             return tempo
 
 class Estacionamento:
+    def __init__(self):
+        self.__horaAtual: int = 0
+        self.__veiculos: list[Veiculo] = []
+
+    def procurarVeiculo(self, id: str) -> int:
+        for i, veiculo in enumerate(self.__veiculos):
+            if veiculo.getId() == id:
+                return id
+            return -1
+
+    def estacionar(self, veiculo: Veiculo) -> None:
+        veiculo.setEntrada(self.__horaAtual)
+        self.__veiculos.append(veiculo)
+
+    def pagar(self, id: str) -> None:
+        posicao = self.procurarVeiculo(id)
+        if posicao != -1:
+            veiculo = self.__veiculos.pop(posicao)
+            valor = veiculo.calcularValor(self.__horaAtual)
+            print(
+                f"{veiculo.getTipo()} chegou {veiculo.getEntrada()}"
+                f"saiu {self.__horaAtual}."
+                f"Pagar R$ {valor:.2f}"
+            )
+
+    def sair(self, id: str) -> None:
+        self.pagar(id)
+
+    def passarTempo(self, tempo: int) -> None:
+        self.__horaAtual += tempo
+
+    def __str__(self) ->
